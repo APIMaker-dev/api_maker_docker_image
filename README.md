@@ -12,9 +12,8 @@ git clone https://github.com/APIMaker-dev/api_maker_docker_image.git
 cd api_maker_docker_image/docker-compose
 
 # Start API Maker containers
-docker-compose -f ./am-local-docker-compose.yml up -d
+docker-compose -f ./am-local-docker-compose.yml -p api_maker up -d
 docker logs --follow api_maker_be_fe # See internal logs
-
 
 # Stop API Maker containers
 docker-compose -f ./am-local-docker-compose.yml stop
