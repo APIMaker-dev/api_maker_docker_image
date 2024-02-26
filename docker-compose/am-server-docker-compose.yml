@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+    api_maker:
+        image: savainfosystems/api_maker_be_fe:0.0.1-alpha
+        container_name: api_maker_be_fe
+        ports:
+            - '4626:4626'
+            - '38246:38246'
+            - '38245:38245'
+        privileged: true
+        platform: linux/amd64
+        volumes:
+            # local.env or .env file should present in current directory of this file.
+            - ./:/root/api_maker_config
+        depends_on:
+            - am_mongodb
+            - am_redis_internal
+        network_mode: host

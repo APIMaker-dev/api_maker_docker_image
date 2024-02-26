@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+    am_mongodb:
+        image: mongo:7.0
+        container_name: api_maker_mongodb
+        command: [ "--replSet", "rs0", "--bind_ip_all", "--port", "27017" ]
+        ports:
+            - 27017:27017
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        healthcheck:
+            test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'host.docker.internal:27017'}]}) }" | mongosh --port 27017 --quiet
+            interval: 5s
+            timeout: 30s
+            start_period: 0s
+            start_interval: 1s
+            retries: 30
+        volumes:
+            - ~/docker-data/am_mongodb/db:/data/db
+            - ~/docker-data/am_mongodb/configdb:/data/configdb
+        networks:
+            - api_maker_network
+
+    am_redis_internal:
+        image: 'redis:7.0.9-alpine'
+        container_name: api_maker_redis_internal
+        environment:
+            - REDIS_PORT_NUMBER=6379
+        ports:
+            - '6379:6379'
+        command: redis-server --loglevel warning --requirepass yCs3MHp3FH4bocVaHLXN
+        volumes:
+            - ~/docker-data/am_redis_internal:/data
+        networks:
+            - api_maker_network
+
+    api_maker:
+        image: savainfosystems/api_maker_be_fe:1.3.2
+        container_name: api_maker_be_fe
+        ports:
+            - '4626:4626'
+            - '38246:38246'
+            - '38245:38245'
+        privileged: true
+        platform: linux/amd64
+        volumes:
+            # local.env or .env file should present in current directory of this file.
+            - ./:/root/api_maker_config
+        depends_on:
+            - am_mongodb
+            - am_redis_internal
+        networks:
+            - api_maker_network
+
+networks:
+    api_maker_network:
+        driver: bridge
