@@ -23,7 +23,7 @@ cd api_maker_docker_image/docker-compose
 
 # Start API Maker containers
 # Make sure 27017(MongoDB), 6379(Redis), 4626(FE UI), 38246(APIs), 38245(WS) ports are open.
-docker-compose -f ./am-local-docker-compose.yml -p api_maker up -d # Start API Maker containers
+docker-compose -f ./am-local-docker-compose.yml -p api_maker up -d --build # Start API Maker containers
 docker logs --follow api_maker_be_fe # See internal logs
 
 # Notes
