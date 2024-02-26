@@ -5,8 +5,8 @@ services:
         image: mongo:7.0
         container_name: api_maker_mongodb
         command: [ "--replSet", "rs0", "--bind_ip_all", "--port", "27017" ]
-        ports:
-            - 27017:27017
+        # ports:
+        #     - 27017:27017
         extra_hosts:
             - "host.docker.internal:host-gateway"
         healthcheck:
@@ -27,8 +27,8 @@ services:
         container_name: api_maker_redis_internal
         environment:
             - REDIS_PORT_NUMBER=6379
-        ports:
-            - '6379:6379'
+        # ports:
+        #     - '6379:6379'
         command: redis-server --loglevel warning --requirepass yCs3MHp3FH4bocVaHLXN
         volumes:
             - ~/docker-data/am_redis_internal:/data
