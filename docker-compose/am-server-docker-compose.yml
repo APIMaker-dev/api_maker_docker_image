@@ -17,3 +17,8 @@ services:
             - am_mongodb
             - am_redis_internal
         network_mode: host
+        environment:
+            # From this section You can set any environment variable supported by API Maker.
+            # https://docs.apimaker.dev/v1/docs/am-resources/api-maker-configurations.html#api-maker-settings
+            # - am__cpuCount=1
+            - am__serverName=DC_Server_1
