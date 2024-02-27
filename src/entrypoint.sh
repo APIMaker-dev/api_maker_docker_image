@@ -29,4 +29,4 @@ cd /root/api_maker
 echo "👍 Using config : $ENV_PATH"
 $NODE main.js --envPath=$ENV_PATH
 
-sleep infinity
+# sleep infinity

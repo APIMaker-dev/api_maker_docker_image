@@ -17,8 +17,8 @@ services:
             start_interval: 1s
             retries: 30
         volumes:
-            - ~/docker-data/am_mongodb/db:/data/db
-            - ~/docker-data/am_mongodb/configdb:/data/configdb
+            - ./docker-data/am_mongodb/db:/data/db
+            - ./docker-data/am_mongodb/configdb:/data/configdb
         networks:
             - api_maker_network
 
@@ -31,7 +31,7 @@ services:
             - '6379:6379'
         command: redis-server --loglevel warning --requirepass yCs3MHp3FH4bocVaHLXN
         volumes:
-            - ~/docker-data/am_redis_internal:/data
+            - ./docker-data/am_redis_internal:/data
         networks:
             - api_maker_network
 
@@ -46,7 +46,7 @@ services:
         platform: linux/amd64
         volumes:
             # local.env or .env file should present in current directory of this file.
-            - ./:/root/api_maker_config
+            - ./docker-data/api_maker_config:/root/api_maker_config
         depends_on:
             - am_mongodb
             - am_redis_internal

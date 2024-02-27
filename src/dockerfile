@@ -34,7 +34,7 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | ba
     && tar -zxf $AM_EXTRACT_FILE \
     && mkdir -p /root/api_maker \
     && mv /root/Downloads/package/* /root/api_maker \
-    && mv /root/Downloads/package/.* /root/api_maker \
+    && mv /root/Downloads/package/.* /root/api_maker 2>/dev/null \
     && cd /root/api_maker \
     && rm -rf /root/Downloads \
     && npm i \
