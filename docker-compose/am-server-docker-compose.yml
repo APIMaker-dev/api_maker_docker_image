@@ -11,8 +11,7 @@ services:
         privileged: true
         platform: linux/amd64
         volumes:
-            # local.env or .env file should present in current directory of this file.
-            - ./:/root/api_maker_config
+            - ./docker-data/api_maker_config:/root/api_maker_config
         depends_on:
             - am_mongodb
             - am_redis_internal
