@@ -28,7 +28,7 @@ Feel free to raise pull request if you feel you can improve something.
 
 
 ### 💻 Run API Maker in local using Docker
-- MongoDB & Redis & API Maker config data will be stored in folder `~/docker-data`, so you will not loose your data when you upgrade to latest API Maker version.
+- MongoDB & Redis & API Maker config data will be stored in current folder in `./docker-data`, so you will not loose your data when you upgrade to latest API Maker version.
 
 ```sh
 git clone https://github.com/APIMaker-dev/api_maker_docker_image.git
