@@ -2,3 +2,4 @@
 docker-compose/docker-data
 docker-compose/api_maker_config
 
+.idea

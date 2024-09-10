@@ -3,7 +3,7 @@
 ### ✓ Environment variables
 ```sh
 export DOCKER_USERNAME=savainfosystems
-export AM_IMAGE_VERSION=1.3.3
+export AM_IMAGE_VERSION=1.7.0
 export AM_IMAGE_VERSION=latest
 export AM_IMAGE_VERSION=0.0.1-alpha
 ```
