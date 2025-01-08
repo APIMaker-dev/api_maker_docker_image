@@ -45,12 +45,14 @@ services:
         privileged: true
         platform: linux/amd64
         volumes:
-            - ./docker-data/api_maker_config:/root/api_maker_config
+            - ./api_maker_config:/root/api_maker_config
         depends_on:
             - am_mongodb
             - am_redis_internal
         networks:
             - api_maker_network
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         environment:
             # From this section You can set any environment variable supported by API Maker.
             # https://docs.apimaker.dev/v1/docs/am-resources/api-maker-configurations.html#api-maker-settings
