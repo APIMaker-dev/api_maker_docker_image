@@ -3,8 +3,8 @@
 ### ✓ Environment variables
 ```sh
 export DOCKER_USERNAME=savainfosystems
-export AM_IMAGE_VERSION=1.9.0
 export AM_IMAGE_VERSION=latest
+export AM_IMAGE_VERSION=1.9.0
 export AM_IMAGE_VERSION=0.0.1-alpha
 ```
 
@@ -38,3 +38,4 @@ export DOCKER_USERNAME=savainfosystems
 export AM_IMAGE_VERSION=dnd_test
 docker build . -t ${DOCKER_USERNAME}/api_maker_be_fe:$AM_IMAGE_VERSION --platform linux/amd64
 docker run --privileged ${DOCKER_USERNAME}/api_maker_be_fe:$AM_IMAGE_VERSION
+docker run --privileged ${DOCKER_USERNAME}/api_maker_be_fe:$AM_IMAGE_VERSION sleep infinity

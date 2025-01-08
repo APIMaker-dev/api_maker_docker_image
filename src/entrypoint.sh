@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# Start docker
+start-docker.sh
+
 echo "👉 Docker is starting."
 while ! docker ps ; do
       echo "Waiting for docker..."
       sleep 3s;
 done
 echo "✅ Docker Service Ready"
-docker ps
 
 # Find proper environment variable path
 ENV_PATH=""

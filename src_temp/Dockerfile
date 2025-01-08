@@ -5,3 +5,48 @@ RUN apt-get update && apt-get install git -y
 
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Replace sh with bash
+SHELL ["/bin/bash", "--login", "-c"]
+
+# Update packages
+RUN apt-get update && apt install -y vim make curl fuse-overlayfs
+
+# Install D2 library
+ARG D2_LIB_VERSION=0.6.3
+RUN mkdir -p /root/Downloads && cd /root/Downloads
+RUN curl -fsSLO https://github.com/terrastruct/d2/releases/download/v$D2_LIB_VERSION/d2-v$D2_LIB_VERSION-linux-amd64.tar.gz && tar -xzf "d2-v$D2_LIB_VERSION-linux-amd64.tar.gz" && make -sC "d2-v$D2_LIB_VERSION" install
+RUN echo "✅ D2 library installed"
+
+# Environment variables
+ARG AM_VERSION=latest
+ARG AM_NODE_VERSION=18.16.0
+ARG AM_NPM_VERSION=9.9.2
+ARG PM2_VERSION=5.3.0
+ARG ORACLE_DB_VERSION=5.5.0
+
+# Install NVM & Node.js & do npm install
+ARG NVM_DIR="/root/.nvm"
+RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
+    && . $NVM_DIR/nvm.sh \
+    && nvm install $AM_NODE_VERSION && nvm use $AM_NODE_VERSION \
+    && nvm alias default $AM_NODE_VERSION \
+    && nvm use default \
+    && cd /root/Downloads \
+    && AM_EXTRACT_FILE=`npm pack @sava-info-systems/api-maker@$AM_VERSION` \
+    && tar -zxf $AM_EXTRACT_FILE \
+    && mkdir -p /root/api_maker \
+    && mv /root/Downloads/package/* /root/api_maker \
+    && mv /root/Downloads/package/.* /root/api_maker 2>/dev/null \
+    && cd /root/api_maker \
+    && rm -rf /root/Downloads \
+    && npm i \
+    && npm install -g pm2@$PM2_VERSION \
+    && npm install oracledb@$ORACLE_DB_VERSION \
+    && ln -s "$(which node)" /usr/bin/node \
+    && ln -s "$(which npm)" /usr/bin/npm
+RUN echo "✅ NVM & Node.js & node_modules installed"
+
+ENV NODE="/root/.nvm/versions/node/v$AM_NODE_VERSION/bin/node"
+ENV NPM="/root/.nvm/versions/node/v$AM_NODE_VERSION/bin/npm"
+ENV PM2="/root/.nvm/versions/node/v$AM_NODE_VERSION/bin/pm2"

@@ -1,13 +1,13 @@
-# ARG var
-# ENV var=${var}
-# Using ARG alone means your variable is visible at build time, not at runtime.
+FROM cruizba/ubuntu-dind:noble-27.4.1
 
-FROM cruizba/ubuntu-dind:noble-systemd-27.4.1
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Replace sh with bash
 SHELL ["/bin/bash", "--login", "-c"]
 
 # Update packages
-RUN apt-get update && apt install -y vim make curl fuse-overlayfs
+RUN apt-get update && apt install -y git vim make curl
 
 # Install D2 library
 ARG D2_LIB_VERSION=0.6.3
@@ -47,9 +47,3 @@ RUN echo "✅ NVM & Node.js & node_modules installed"
 ENV NODE="/root/.nvm/versions/node/v$AM_NODE_VERSION/bin/node"
 ENV NPM="/root/.nvm/versions/node/v$AM_NODE_VERSION/bin/npm"
 ENV PM2="/root/.nvm/versions/node/v$AM_NODE_VERSION/bin/pm2"
-
-WORKDIR /root
-COPY entrypoint.sh .
-RUN chmod +x /root/entrypoint.sh
-
-ENTRYPOINT ["/root/entrypoint.sh"]
