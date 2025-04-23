@@ -4,7 +4,7 @@
 ```sh
 export DOCKER_USERNAME=savainfosystems
 export AM_IMAGE_VERSION=latest
-export AM_IMAGE_VERSION=1.10.0
+export AM_IMAGE_VERSION=1.15.1
 export AM_IMAGE_VERSION=0.0.1-alpha
 ```
 
