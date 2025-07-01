@@ -4,7 +4,7 @@
 ```sh
 export DOCKER_USERNAME=savainfosystems
 export AM_IMAGE_VERSION=latest
-export AM_IMAGE_VERSION=1.15.1
+export AM_IMAGE_VERSION=1.17.0
 export AM_IMAGE_VERSION=0.0.1-alpha
 ```
 
@@ -25,7 +25,7 @@ docker build . -t ${DOCKER_USERNAME}/api_maker_be_fe:$AM_IMAGE_VERSION --platfor
 
 
 cd /Volumes/Data/code/SavaGit/AM/api_maker_docker_image/docker-compose
-docker-compose -f ./am-local-docker-compose.yml -p api_maker up -d --build
+docker compose -f ./am-local-docker-compose.yml -p api_maker up -d --build
 
 
 

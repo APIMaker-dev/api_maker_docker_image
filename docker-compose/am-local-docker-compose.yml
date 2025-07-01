@@ -1,10 +1,9 @@
-version: "3.8"
-
 services:
     am_mongodb:
         image: mongo:7.0
         container_name: api_maker_mongodb
         command: [ "--replSet", "rs0", "--bind_ip_all", "--port", "27017" ]
+        restart: always
         ports:
             - 27017:27017
         extra_hosts:
@@ -25,6 +24,7 @@ services:
     am_redis_internal:
         image: 'redis:7.0.9-alpine'
         container_name: api_maker_redis_internal
+        restart: always
         environment:
             - REDIS_PORT_NUMBER=6379
         ports:
@@ -43,6 +43,7 @@ services:
             - '38246:38246'
             - '38245:38245'
         privileged: true
+        restart: always
         platform: linux/amd64
         volumes:
             - ./api_maker_config:/root/api_maker_config
